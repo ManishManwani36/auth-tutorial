@@ -24,11 +24,16 @@
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",
+        "@typescript-eslint/eslint-plugin": "^6.18.1",
         "autoprefixer": "^10.0.1",
         "commitizen": "^4.3.0",
         "commitizen-emoji": "^1.0.5",
-        "eslint": "^8",
+        "eslint": "^8.56.0",
         "eslint-config-next": "14.0.4",
+        "eslint-config-node": "^4.1.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
         "husky": "^8.0.3",
         "lint-staged": "^15.2.0",
         "postcss": "^8",
@@ -43,9 +48,11 @@
     },
     "lint-staged": {
         "*.ts": [
+            "eslint --fix",
             "prettier --write"
         ],
         "*.tsx": [
+            "eslint --fix",
             "prettier --write"
         ]
     }
