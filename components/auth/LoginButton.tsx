@@ -15,6 +15,7 @@ export default function LoginButton({
     const router = useRouter();
 
     const onClick = () => {
+        console.log("TODO: Implement LoginButton's onClick");
         router.push('/auth/login');
     };
 
