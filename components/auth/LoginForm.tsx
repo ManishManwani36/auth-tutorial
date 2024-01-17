@@ -8,7 +8,7 @@ export function LoginForm() {
             backButtonHref="/auth/register"
             showSocial
         >
-            This is a LoginForm
+            LoginForm
         </CardWrapper>
     );
 }
