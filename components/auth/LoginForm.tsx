@@ -8,7 +8,7 @@ export function LoginForm() {
             backButtonHref="/auth/register"
             showSocial
         >
-            LoginForm
+            My Daily commit LoginForm
         </CardWrapper>
     );
 }
