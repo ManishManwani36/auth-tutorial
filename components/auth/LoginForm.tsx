@@ -19,8 +19,14 @@ import {
 import { Input } from '../ui/input';
 import { CardWrapper } from './CardWrapper';
 import { login } from '@/actions/login';
+import { useSearchParams } from 'next/navigation';
 
 export function LoginForm() {
+    const searchParams = useSearchParams();
+    const urlError =
+        searchParams.get('error') === 'OAuthAccountNotLinked'
+            ? 'Email already used with different provider'
+            : '';
     const [error, setError] = useState<string | undefined>('');
     const [success, setSuccess] = useState<string | undefined>('');
     const [isPending, startTransition] = useTransition();
@@ -38,9 +44,9 @@ export function LoginForm() {
 
         startTransition(() => {
             login(values).then((data) => {
-                // TODO: What's going on with these error and success states?
-                setError(data.error);
-                setSuccess(data.success);
+                setError(data?.error);
+                // TODO: Add when we add 2FA
+                // setSuccess(data?.success);
             });
         });
     };
@@ -95,7 +101,7 @@ export function LoginForm() {
                             )}
                         />
                     </div>
-                    <FormError message={error} />
+                    <FormError message={error || urlError} />
                     <FormSuccess message={success} />
                     <Button
                         type="submit"
