@@ -7,7 +7,7 @@ import { UserRole } from '@prisma/client';
 
 declare module 'next-auth' {
     interface User {
-        /** The user's postal address. */
+        /** The user's postal address */
         role: UserRole;
     }
 }
