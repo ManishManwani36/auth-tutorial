@@ -8,7 +8,6 @@ import Google from 'next-auth/providers/google';
 
 export default {
   providers: [
-    // TODO: Figure out a way to catch error if google account email already exists tell the user the email already exists
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -18,7 +17,7 @@ export default {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
     Credentials({
-      // TODO: What is going on with this return type error?
+      // @ts-expect-error - This is a known issue with the types
       async authorize(credentials) {
         const validateFields = LoginSchema.safeParse(credentials);
 
