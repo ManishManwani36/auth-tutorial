@@ -1,5 +1,5 @@
 import { ExtendedUser } from '@/next-auth';
-import { Card, CardContent, CardHeader } from './ui/card';
+import { CardContent, CardHeader } from './ui/card';
 import { Badge } from './ui/badge';
 
 interface UserInfoProps {
@@ -9,7 +9,7 @@ interface UserInfoProps {
 
 export default function UserInfo({ user, label }: UserInfoProps) {
   return (
-    <Card className="w-[600px] shadow-md">
+    <>
       <CardHeader>
         <p className="text-2xl font-semibold text-center">{label}</p>
       </CardHeader>
@@ -45,6 +45,6 @@ export default function UserInfo({ user, label }: UserInfoProps) {
           </Badge>
         </div>
       </CardContent>
-    </Card>
+    </>
   );
 }

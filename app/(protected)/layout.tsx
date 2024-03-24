@@ -6,9 +6,11 @@ interface ProtectedLayoutProps {
 
 export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
   return (
-    <div className="h-full w-full flex flex-col gap-y-10 items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
-      <Navbar />
-      {children}
+    <div className="h-screen w-screen flex flex-col items-center justify-center">
+      <div className="h-full w-full max-w-xl">
+        <Navbar />
+        <div className="w-full">{children}</div>
+      </div>
     </div>
   );
 }

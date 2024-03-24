@@ -4,7 +4,7 @@ import { admin } from '@/actions/admin';
 import { FormSuccess } from '@/components/FormSuccess';
 import RoleGate from '@/components/auth/RoleGate';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { CardContent, CardHeader } from '@/components/ui/card';
 import { UserRole } from '@prisma/client';
 import { toast } from 'sonner';
 
@@ -29,7 +29,7 @@ export default function AdminPage() {
     });
   };
   return (
-    <Card className="w-[600px]">
+    <>
       <CardHeader>
         <p className="text-2xl font-semibold text-center">🔑 Admin</p>
       </CardHeader>
@@ -46,6 +46,6 @@ export default function AdminPage() {
           <Button onClick={onServerActionClick}>Click to test</Button>
         </div>
       </CardContent>
-    </Card>
+    </>
   );
 }

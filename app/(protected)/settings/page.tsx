@@ -4,7 +4,7 @@ import * as z from 'zod';
 
 import { settings } from '@/actions/settings';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { CardContent, CardHeader } from '@/components/ui/card';
 import { useSession } from 'next-auth/react';
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
@@ -69,7 +69,7 @@ export default function SettingsPage() {
     });
   };
   return (
-    <Card className="w-[600px]">
+    <>
       <CardHeader>
         <p className="text-2xl font-semibold text-center">⚙️ Settings</p>
       </CardHeader>
@@ -210,6 +210,6 @@ export default function SettingsPage() {
           </form>
         </Form>
       </CardContent>
-    </Card>
+    </>
   );
 }

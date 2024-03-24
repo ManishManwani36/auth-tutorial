@@ -10,9 +10,5 @@ export default function LogoutButton({ children }: LogoutButtonProps) {
   const onClick = () => {
     logout();
   };
-  return (
-    <span onClick={onClick} className="cursor-pointer">
-      {children}
-    </span>
-  );
+  return <span onClick={onClick}>{children}</span>;
 }
