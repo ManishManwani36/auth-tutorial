@@ -2,99 +2,37 @@
 
 import { UserButton } from '@/components/auth/UserButton';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
-  GearIcon,
-  HamburgerMenuIcon,
-  LaptopIcon,
-  LockClosedIcon,
-  PersonIcon,
-} from '@radix-ui/react-icons';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { PanelLeft } from 'lucide-react';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import NavItems from './NavItems';
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const [navOpen, setNavOpen] = useState(true);
+
+  const toggleNav = () => setNavOpen((prev) => !prev);
+
   return (
-    <nav className="bg-secondary justify-between items-center flex p-4 shadow-md w-full">
-      <div className="hidden gap-x-2 sm:flex">
-        <Button
-          asChild
-          variant={pathname === '/server' ? 'default' : 'outline'}
-        >
-          <Link href="/server">Server</Link>
-        </Button>
-        <Button
-          asChild
-          variant={pathname === '/client' ? 'default' : 'outline'}
-        >
-          <Link href="/client">Client</Link>
-        </Button>
-        <Button asChild variant={pathname === '/admin' ? 'default' : 'outline'}>
-          <Link href="/admin">Admin</Link>
-        </Button>
-        <Button
-          asChild
-          variant={pathname === '/settings' ? 'default' : 'outline'}
-        >
-          <Link href="/settings">Settings</Link>
-        </Button>
+    <nav
+      className={cn(
+        'hidden sm:flex bg-secondary px-2 py-4 shadow-md w-full max-w-72 h-full transition-all',
+        navOpen ? '' : 'ml-[-288px]'
+      )}
+    >
+      <div className="flex flex-col gap-y-2 w-full">
+        <div className="flex justify-between items-center py-2">
+          <UserButton />
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={toggleNav}
+            className={cn('transition-all z-10', navOpen ? '' : 'mr-[-68px]')}
+          >
+            <PanelLeft className="h-5 w-5" />
+          </Button>
+        </div>
+        <NavItems />
       </div>
-      <div className="sm:hidden flex items-center justify-center">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <HamburgerMenuIcon className="h-7 w-7" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-40 flex flex-col gap-1" align="end">
-            <span>
-              <Link href="/server">
-                <DropdownMenuItem
-                  className={pathname === '/server' ? 'bg-slate-100' : ''}
-                >
-                  <LaptopIcon className="h-4 w-4 mr-2" />
-                  Server
-                </DropdownMenuItem>
-              </Link>
-            </span>
-            <span>
-              <Link href="/client">
-                <DropdownMenuItem
-                  className={pathname === '/client' ? 'bg-slate-100' : ''}
-                >
-                  <PersonIcon className="h-4 w-4 mr-2" />
-                  Client
-                </DropdownMenuItem>
-              </Link>
-            </span>
-            <span>
-              <Link href="/admin">
-                <DropdownMenuItem
-                  className={pathname === '/admin' ? 'bg-slate-100' : ''}
-                >
-                  <LockClosedIcon className="h-4 w-4 mr-2" />
-                  Admin
-                </DropdownMenuItem>
-              </Link>
-            </span>
-            <span>
-              <Link href="/settings">
-                <DropdownMenuItem
-                  className={pathname === '/settings' ? 'bg-slate-100' : ''}
-                >
-                  <GearIcon className="h-4 w-4 mr-2" />
-                  Settings
-                </DropdownMenuItem>
-              </Link>
-            </span>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <UserButton />
     </nav>
   );
 }
