@@ -11,6 +11,7 @@ import { Button } from '../ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -21,6 +22,7 @@ import { CardWrapper } from './CardWrapper';
 import { login } from '@/actions/login';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp';
 
 export function LoginForm() {
   const searchParams = useSearchParams();
@@ -84,12 +86,25 @@ export function LoginForm() {
                   <FormItem>
                     <FormLabel>Two Factor Code</FormLabel>
                     <FormControl>
-                      <Input
+                      {/* <Input
                         {...field}
                         disabled={isPending}
                         placeholder="1234356"
-                      />
+                      /> */}
+                      <InputOTP maxLength={6} {...field} disabled={isPending}>
+                        <InputOTPGroup>
+                          <InputOTPSlot index={0} />
+                          <InputOTPSlot index={1} />
+                          <InputOTPSlot index={2} />
+                          <InputOTPSlot index={3} />
+                          <InputOTPSlot index={4} />
+                          <InputOTPSlot index={5} />
+                        </InputOTPGroup>
+                      </InputOTP>
                     </FormControl>
+                    <FormDescription>
+                      Please enter the two factor code sent to your email.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
