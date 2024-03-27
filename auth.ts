@@ -3,14 +3,16 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import authConfig from '@/auth.config';
 import { db } from '@/lib/db';
 import { getUserById } from './data/user';
-import { UserRole } from '@prisma/client';
+import { UserRole, UserTier } from '@prisma/client';
 import { getTwoFactorConfirmationByUserId } from './data/twoFactorConfirmation';
 import { getAccountByUserId } from './data/account';
 
 declare module 'next-auth' {
   interface User {
-    /** The user's postal address */
+    /** The user's role */
     role: UserRole;
+    /** The user's tier */
+    tier: UserTier;
   }
 }
 
@@ -64,6 +66,10 @@ export const {
         session.user.role = token.role as UserRole;
       }
 
+      if (token.tier && session.user) {
+        session.user.tier = token.tier as UserTier;
+      }
+
       if (session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
@@ -89,6 +95,7 @@ export const {
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.role = existingUser.role;
+      token.tier = existingUser.tier;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
 
       return token;

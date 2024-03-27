@@ -1,4 +1,4 @@
-import { UserRole } from '@prisma/client';
+import { UserRole, UserTier } from '@prisma/client';
 import * as z from 'zod';
 
 export const SettingsSchema = z
@@ -6,6 +6,7 @@ export const SettingsSchema = z
     name: z.optional(z.string()),
     isTwoFactorEnabled: z.optional(z.boolean()),
     role: z.enum([UserRole.ADMIN, UserRole.USER]),
+    tier: z.enum([UserTier.FREE, UserTier.PRO]),
     email: z.optional(z.string().email()),
     password: z.optional(z.string().min(6)),
     newPassword: z.optional(z.string().min(6)),
