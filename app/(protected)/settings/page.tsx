@@ -23,14 +23,7 @@ import { Input } from '@/components/ui/input';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { FormError } from '@/components/FormError';
 import { FormSuccess } from '@/components/FormSuccess';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { UserRole } from '@prisma/client';
+
 import { Switch } from '@/components/ui/switch';
 
 export default function SettingsPage() {
@@ -48,10 +41,12 @@ export default function SettingsPage() {
       name: user?.name || undefined,
       email: user?.email || undefined,
       role: user?.role || undefined,
+      tier: user?.tier || undefined,
       isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
     },
   });
 
+  // TODO: Rate limit the number of updates
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
     startTransition(() => {
       settings(values)
@@ -152,7 +147,8 @@ export default function SettingsPage() {
                   />
                 </>
               )}
-              <FormField
+              {/* Not for public use */}
+              {/* <FormField
                 control={form.control}
                 name="role"
                 render={({ field }) => (
@@ -177,6 +173,31 @@ export default function SettingsPage() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="tier"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tier</FormLabel>
+                    <Select
+                      disabled={isPending}
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a tier" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value={UserTier.FREE}>Free</SelectItem>
+                        <SelectItem value={UserTier.PRO}>Pro</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              /> */}
               {user?.isOAuth === false && (
                 <FormField
                   control={form.control}
